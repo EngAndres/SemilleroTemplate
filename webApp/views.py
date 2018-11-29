@@ -15,8 +15,8 @@ def makeContact(request):
 
 		if frmNewCandidate.is_valid():
 			candidate = frmNewCandidate.save(commit = False)
-			candidate.semester_fk = Semester.objects.get(id_semester = request.POST.get("semester"))
-			candidate.save()
+			#candidate.semester_fk = Semester.objects.get(id_semester = request.POST.get("semester"))
+			#candidate.save()
 		
 	frmNewCandidate = NewCandidate()
 	return render(request, 'webApp/contacto.html', {'frmNewCandidate':frmNewCandidate})
