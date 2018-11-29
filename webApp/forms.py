@@ -3,8 +3,8 @@ from .models import Semester
 from .models import Candidate
 
 class NewCandidate(forms.ModelForm):
-	#temp = Semester.semester_.get_semesters()
-	semesters = [] #((element[0], element[1]) for element in temp) 
+	temp = Semester.semester_.get_semesters()
+	semesters = ((element[0], element[1]) for element in temp) 
 
 	name = forms.CharField(label = "Nombre", required=True)
 	email = forms.CharField(label = "Correo", required=True)
