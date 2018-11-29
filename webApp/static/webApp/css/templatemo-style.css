@@ -125,7 +125,7 @@ h4 {
 
 .tm-btn {
 	color: white;
-	background-color: #cc9900;
+	background-color: #009999;
 	border: none;
 	border-radius: 5px;
 	display: inline-block;
@@ -215,7 +215,13 @@ p { line-height: 1.9; }
 
 .tm-aside-r { padding-left: 30px; }
 
-.form-control {
+input {
+	border-radius: 0;
+	font-size: 1.1rem;
+	padding: 0.75rem 1rem;
+}
+
+textarea {
 	border-radius: 0;
 	font-size: 1.1rem;
 	padding: 0.75rem 1rem;
