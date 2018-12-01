@@ -17,8 +17,8 @@ http://www.templatemo.com/tm-488-classic
 
     <script src="http://cdn.pydata.org/bokeh/release/bokeh-1.0.1.min.js"></script>		
     <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-1.0.1.min.css">
-    {{script_plot_1|safe}}
-    {{script_plot_2|safe}}
+    {{script_members|safe}}
+    {{script_production|safe}}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,8 +68,29 @@ http://www.templatemo.com/tm-488-classic
        
         <section class="tm-section">
             <div class="container-fluid">
-                {{div_plot_1|safe}}
-		{{div_plot_2|safe}}
+		<div class="row tm-margin-t-mid">
+                    <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 col-xl-4">
+			{{div_members|safe}}
+                    </div>
+
+		    <div class="col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1">
+
+                    </div>
+
+                    <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4 col-xl-4">
+			 {{div_production|safe}}    
+                    </div>
+
+		    <div class="col-xs-12 col-sm-2 col-md-1 col-lg-1 col-xl-1">
+
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 col-xl-2">
+			Total de Art&iacute;culos:  {{papers}}<br />
+			Total de Eventos:  {{events}}<br />
+			Total de Producci&oacute;n:  {{production}}<br />
+                    
+                    </div>
             </div>
         </section>
          <!-- load JS files -->
