@@ -4,14 +4,61 @@ from django.utils import timezone
 
 # Create your models here.
 ######################## Project ########################
+class Area(models.Model):
+    id_area=models.integerField()
+    name=models.TextField()
+
+class Resultado(models.Model):
+    id_resultado=models.integerField()
+    name=models.TextField()
+
+class Member(models.Model):
+    id_member=models.integerField()
+    name=models.TextField()
+    cedula=models.integerField()
+    nickname=models.TextField()
+    password=models.TextField()
+    project=models.ForeignKey(Project, on_delete=models.CASCADE)
+    resultado=models.ForeignKey(Resultado, on_delete=models.CASCADE)
+    email=models.TextField()
+    cellphone=models.integerField()
+    link_CvLAC=models.TextField()
+    ubicacion=models.TextField()
+    link_twitter=models.TextField()
+    link_fb=models.TextField()
+    link_instagram=models.TextField()
+
 class Project(models.Model):
 	id_project = models.IntegerField()
-	name = models.TextField(unique = True)
-	description = models.TextField(default = "")
+	name = models.TextField()
+	descripcion = models.TextField()
+""" 
+Estas lineas de codigo no me dejo agregarlas a la clase project no se por que, revise si a usted le sirve
+link_github=models.TextField()
+    resultado = models.ForeignKey(Resultado, on_delete=models.CASCADE)
+    integrante=models.ForeignKey(Member, on_delete=models.CASCADE)
+"""
 
+class Publicaciones(models.Model):
+    type = models.ForeignKey(PublicationType, on_delete=models.CASCADE)
+    name = models.TextField()
+    description=models.TextField()
+    link=models.TextField()
+    members=models.ForeignKey(Member, on_delete=models.CASCADE)
+    year=models.integerField()
+    project=models.ForeignKey(Project, on_delete=models.CASCADE)
+    reconocimientos=models.ForeignKey(Archievement, on_delete=models.CASCADE)
+
+class Archievement(models.Model): 
+    id_archievemnt = models.IntegerField()
+    name=models.TextField()
+
+class PublicationType(models.Model): 
+    id_project = models.IntegerField()
+    name=models.TextField()
 
 ######################## Member ########################
-class MemberManager(models.Manager):
+""" class MemberManager(models.Manager):
 	def create_member(self, id_, name_, nickname_, password_, project_):	#Similar to a constructor
 		member = Member(id_member = id_, name = name_, nickname = nickname_, password = password_, project_fk = project_)
 		return member
@@ -85,7 +132,7 @@ class Candidate(models.Model):
 	semester_fk = models.ForeignKey(Semester, on_delete = models.CASCADE, default = None)
 	candidate_ = CandidateManager()
 
-
+"""
 
 
 
