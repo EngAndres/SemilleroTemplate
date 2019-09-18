@@ -32,12 +32,9 @@ class Project(models.Model):
 	id_project = models.IntegerField()
 	name = models.TextField()
 	descripcion = models.TextField()
-""" 
-Estas lineas de codigo no me dejo agregarlas a la clase project no se por que, revise si a usted le sirve
-link_github=models.TextField()
-    resultado = models.ForeignKey(Resultado, on_delete=models.CASCADE)
+    link_github=models.TextField()
+    resultado=models.ForeignKey(Resultado, on_delete=models.CASCADE)
     integrante=models.ForeignKey(Member, on_delete=models.CASCADE)
-"""
 
 class Publicaciones(models.Model):
     type = models.ForeignKey(PublicationType, on_delete=models.CASCADE)
@@ -133,6 +130,3 @@ class Candidate(models.Model):
 	candidate_ = CandidateManager()
 
 """
-
-
-
