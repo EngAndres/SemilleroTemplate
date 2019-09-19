@@ -1,9 +1,6 @@
 import plots
 from django.shortcuts import render
 
-from .models import Candidate
-from .models import Semester
-from .forms import NewCandidate
 
 
 
@@ -11,31 +8,50 @@ from .forms import NewCandidate
 def index(request):
 	return render(request, 'webApp/index.html')
 
+def make_contact(request):
+	return render(request, 'webApp/contact.html')
 
-def makeContact(request):
-	if request.method == 'POST':
-		frmNewCandidate = NewCandidate(request.POST)
+def load_projects(request):
+	return render(request, 'webApp/projects.html')
 
-		if frmNewCandidate.is_valid():
-			candidate = frmNewCandidate.save(commit = False)
-			candidate.semester_fk = Semester.objects.get(id_semester = request.POST.get("semester"))
+def load_project(request, id):
+	data = {}
+	return render(request, 'webApp/project.html', {'data' : data})
 
-			candidate.save()
-		
-	frmNewCandidate = NewCandidate()
-	return render(request, 'webApp/contacto.html', {'frmNewCandidate':frmNewCandidate})
+def edit_project(request, id):
+	data = {}
+	return render(request, 'webApp/edit_project.html', {'data' : data})
 
+def add_project(request, id):
+	data = {}
+	return render(request, 'webApp/add_project.html', {'data' : data})
 
-def loadProjects(request):
-	return render(request, 'webApp/proyectos.html')
+def load_staff(request):
+	return render(request, 'webApp/staff.html')
 
+def load_member(request, id):
+	data = {}
+	return render(request, 'webApp/member.html', {'data' : data})
 
-def viewStaff(request):
-	parameters = {}	
-	parameters.update(plots.plot_members()) #update agrega la información de un diccionario adentro de otro diccionario
-	parameters.update(plots.plot_production())
+def edit_member(request, id):
+	data = {}
+	return render(request, 'webApp/edit_member.html', {'data' : data})
 
-	return render(request, 'webApp/integrantes.html', parameters)
+def add_member(request, id):
+	data = {}
+	return render(request, 'webApp/add_member.html', {'data' : data})
 
+def load_products(request):
+	return render(request, 'webApp/products.html')
 
+def load_product(request, id):
+	data = {}
+	return render(request, 'webApp/product.html', {'data' : data})
 
+def edit_product(request, id):
+	data = {}
+	return render(request, 'webApp/edit_product.html', {'data' : data})
+
+def add_product(request, id):
+	data = {}
+	return render(request, 'webApp/add_product.html', {'data' : data})
