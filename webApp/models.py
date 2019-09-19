@@ -18,8 +18,6 @@ class Member(models.Model):
     cedula=models.integerField()
     nickname=models.TextField()
     password=models.TextField()
-    project=models.ForeignKey(Project, on_delete=models.CASCADE)
-    resultado=models.ForeignKey(Resultado, on_delete=models.CASCADE)
     email=models.TextField()
     cellphone=models.integerField()
     link_CvLAC=models.TextField()
@@ -32,19 +30,39 @@ class Project(models.Model):
 	id_project = models.IntegerField()
 	name = models.TextField()
 	descripcion = models.TextField()
-    link_github=models.TextField()
+
+class ResultsProject(models.Model):
+    id_results_project=models.IntegerField()
     resultado=models.ForeignKey(Resultado, on_delete=models.CASCADE)
+    project=models.ForeignKey(Project, on_delete=models.CASCADE)
+
+class ResultsMember(models.Model):
+    id_results_project=models.IntegerField()
+    resultado=models.ForeignKey(Resultado, on_delete=models.CASCADE)
+    member=models.ForeignKey(Member, on_delete=models.CASCADE)
+
+class ProjectMember(models.Model):
     integrante=models.ForeignKey(Member, on_delete=models.CASCADE)
+    project=models.ForeignKey(Project, on_delete=models.CASCADE)
 
 class Publicaciones(models.Model):
     type = models.ForeignKey(PublicationType, on_delete=models.CASCADE)
     name = models.TextField()
     description=models.TextField()
     link=models.TextField()
-    members=models.ForeignKey(Member, on_delete=models.CASCADE)
     year=models.integerField()
+    
+class PublicationProject(models.Model):
+    publicacion=models.ForeignKey(Publicaciones, on_delete=models.CASCADE)
     project=models.ForeignKey(Project, on_delete=models.CASCADE)
+
+class PublicationArchievement(models.Model):
+    publicacion=models.ForeignKey(Publicaciones, on_delete=models.CASCADE)
     reconocimientos=models.ForeignKey(Archievement, on_delete=models.CASCADE)
+
+class PublicationMember(models.Model):
+    members=models.ForeignKey(Member, on_delete=models.CASCADE)
+    publicacion=models.ForeignKey(Publicaciones, on_delete=models.CASCADE)
 
 class Archievement(models.Model): 
     id_archievemnt = models.IntegerField()
