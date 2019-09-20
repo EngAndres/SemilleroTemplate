@@ -8,10 +8,9 @@ class Area(models.Model):
     name = models.CharField(max_length = 100, unique=True)
     description = models.CharField(max_length = 500, default='')
     
-
 class Member(models.Model):
     name = models.CharField(max_length = 50, unique=True)
-    cedula=models.integerField()
+    cedula=models.IntegerField()
     nickname = models.CharField(max_length = 20, unique=True)
     psword = models.CharField(max_length = 50, default='pass')
     email_unal = models.CharField(max_length = 50, unique=True)
@@ -23,15 +22,48 @@ class Member(models.Model):
     link_facebook = models.CharField(max_length = 100, unique=True)
     link_instagram = models.CharField(max_length = 100, unique=True)
 
+
+class Archievement(models.Model): 
+    name = models.CharField(max_length = 50, unique = True)
+    description = models.CharField(max_length = 100, default = '')
+
+######################## Member ########################
+class ProjectManager(models.Manager):
+	def create_project(self, id_, name_, description_, image_path_):	#Similar to a constructor
+		project =Project(id_member = id_, name = name_,description =description_,image_path=image_path_)
+		return project
+
+	def get_project(self):
+		cursor = connection.cursor()
+		cursor.execute("SELECT * FROM webApp_project;")
+		projects = cursor.fetchall()
+		return projects
+
+	def get_project_by_id(self, id_):
+		cursor = connection.cursor()
+		cursor.execute("SELECT webApp_project.id AS id, webApp_project.name AS name, webApp_project.description AS description, webApp_project.image_path AS image FROM webApp_project WHERE webApp_project.id = %s;", [id_])
+		project = cursor.fetchall()
+		return project
+
+	def insert_project(self, name_, description_, image_path_):
+		cursor = connection.cursor()
+		cursor.execute("INSERT INTO webApp_project(name, description,image_path) VALUES (%s, %s, %s)", [name_, description_,image_path_])
+		project= cursor.fetchone()
+		return project
+
 class Project(models.Model):
 	name = models.CharField(max_length = 100, unique=True)
-    description = models.CharField(max_length = 500, default='')
-    image_path = models.CharField(max_length = 100, default='') 
-
-
+	description = models.CharField(max_length = 500, default='')
+	image_path = models.CharField(max_length = 100, default='')
+	project_ = ProjectManager()
+ 
 class Rel_ProjectMember(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+class PublicationType(models.Model): 
+    name = models.CharField(max_length = 40, unique = True)
+    description = models.CharField(max_length = 100, default = '')
 
 class Publicaciones(models.Model):
     type_fk = models.ForeignKey(PublicationType, on_delete=models.CASCADE)
@@ -48,44 +80,7 @@ class Rel_ProductMembers(models.Model):
     member =models.ForeignKey(Member, on_delete=models.CASCADE)
     publicacion = models.ForeignKey(Publicaciones, on_delete=models.CASCADE)
 
-class Archievement(models.Model): 
-    name = models.CharField(max_length = 50, unique = True)
-    description = models.CharField(max_length = 100, default = '')
-
-class PublicationType(models.Model): 
-    name = models.CharField(max_length = 40, unique = True)
-    description = models.CharField(max_length = 100, default = '')
-
-######################## Member ########################
-""" class MemberManager(models.Manager):
-	def create_member(self, id_, name_, nickname_, password_, project_):	#Similar to a constructor
-		member = Member(id_member = id_, name = name_, nickname = nickname_, password = password_, project_fk = project_)
-		return member
-
-	def get_members(self):
-		cursor = connection.cursor()
-		cursor.execute("SELECT * FROM webApp_member;")
-		members = cursor.fetchall()
-		return members
-
-	def get_member_by_id(self, id_):
-		cursor = connection.cursor()
-		cursor.execute("SELECT webApp_member.id AS id, webApp_member.name AS member, webApp_member.nickname AS nick, webApp_member.password AS psword, webApp_project.name AS project FROM webApp_member INNER JOIN webApp_project ON webApp_project.id = webApp_member.project_fk_id WHERE webApp_member.id_member = %s;", [id_])
-		member = cursor.fetchall()
-		return member
-
-	def validate_login(self, nick_, psword_):
-		cursor = connection.cursor()
-		cursor.execute("SELECT COUNT(id)  FROM webApp_member WHERE nickname = %s AND password = %s;", [nick_, psword_])
-		member = cursor.fetchone()
-		return True if member == 1 else False 
-
-	def insert_member(self, id_, name_, nick_, psword_, project_):
-		cursor = connection.cursor()
-		cursor.execute("INSERT INTO webApp_member(id_member, nickname, password, name, project_fk_id) VALUES (%s, %s, %s, %s, %s)", [id_, nick_, psword_, name_, project_])
-		member = cursor.fetchone()
-		return member
-
+"""
 class Member(models.Model):
 	id_member = models.IntegerField()
 	name = models.TextField()
