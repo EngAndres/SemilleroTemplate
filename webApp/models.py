@@ -9,7 +9,7 @@ class Area(models.Model):
     description = models.CharField(max_length = 500, default='')
 
 class MemberManager(models.Manager):
-	def create_member(name_, cedula_, nickname_,psword_,email_unal_,email_personal_,cell_phone_,link_CvLAC_,link_twitter_,link_facebook_,link_instagram_):	#Similar to a constructor
+	def create_member(self,name_, cedula_, nickname_,psword_,email_unal_,email_personal_,cell_phone_,link_CvLAC_,link_twitter_,link_facebook_,link_instagram_):	#Similar to a constructor
 		member =Member(name = name_,cedula =cedula_,nickname=nickname_,psword=psword_,email_unal=email_unal_,email_personal=email_personal_,cell_phone=cell_phone_,link_CvLAC=link_CvLAC_,link_twitter=link_twitter_,link_facebook=link_facebook_,link_instagram=link_instagram_)
 		return member
 
